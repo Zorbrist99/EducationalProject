@@ -6,7 +6,6 @@ from selene import browser, have
 def open_browser():
     browser.config.hold_driver_at_exit = True
     browser.open('https://www.ecosia.org/')
-    # if ()
     browser.element('[data-test-id="cookie-notice-accept"]').click()
     browser.driver.set_window_size(560, 300)
     yield

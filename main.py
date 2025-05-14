@@ -1,16 +1,54 @@
-# This is a sample Python script.
+# # This is a sample Python script.
+#
+# # Press ⌃R to execute it or replace it with your code.
+# # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+#
+#
+# def print_hi(name):
+#     # Use a breakpoint in the code line below to debug your script.
+#     print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+#
+#
+# # Press the green button in the gutter to run the script.
+# #if __name__ == '__main__':
+# #   print_hi('PyCharm')
+#
+# # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+s = ('Hello, '
+     'world')
+print(s)
+
+# Форматирование
+a = 'Hello'
+b = 'world'
+print('{a}, {b}!'.format(a=a, b=b))
+
+print("-----")
+
+print(f"{a}, {b}!")
+print("-----")
+
+print(f'{a}, {b.upper()}!')
+print("-----")
+
+print(f'{a=}, {b=}!')
+print("-----")
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+url_template='https://users.com/v1/api/{}'
 
+user_url=url_template.format('users')
+print(user_url)
+password_url=url_template.format('pass')
+print(password_url)
+print("-----")
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+#Строку в число и наоборот
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+s= "123"
+d= 123
+
+assert s.isdigit()
+assert int(s) == d
+assert s == str(d)

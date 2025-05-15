@@ -33,12 +33,11 @@ print("-----")
 print(f'{a=}, {b=}!')
 print("-----")
 
-a= [1, 2, 3, 4, 5]
+a = [1, 2, 3, 4, 5]
 print(a)
 print(len(a))
 print(a[1])
 print("-----------")
-
 
 a.append(1)
 print(a)
@@ -55,24 +54,24 @@ print("-----------")
 print(words[::-1])
 print("-----------")
 print(words[:3])
-url_template='https://users.com/v1/api/{}'
+url_template = 'https://users.com/v1/api/{}'
 
-user_url=url_template.format('users')
+user_url = url_template.format('users')
 print(user_url)
-password_url=url_template.format('pass')
+password_url = url_template.format('pass')
 print(password_url)
 print("-----")
 
-#Строку в число и наоборот
+# Строку в число и наоборот
 
-s= "123"
-d= 123
+s = "123"
+d = 123
 
 assert s.isdigit()
 assert int(s) == d
 assert s == str(d)
 
-a= [1, 2, 3, 4, 5]
+a = [1, 2, 3, 4, 5]
 print(a)
 print(len(a))
 print(a[1])
@@ -94,3 +93,18 @@ print(words[::-1])
 print("-----------")
 print(words[:3])
 print("-----------")
+
+a = ['a', 'b', 'c', 'd', 'e']
+print(a)
+
+
+def even_indexes(data):
+    result = []
+    for i, value in enumerate(data):
+        if i % 2 == 0:
+            result.append(value)
+    return result
+
+
+finish = even_indexes(a)
+print(finish)

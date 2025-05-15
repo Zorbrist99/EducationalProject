@@ -28,14 +28,33 @@ print("-----")
 
 print(f"{a}, {b}!")
 print("-----")
-
 print(f'{a}, {b.upper()}!')
 print("-----")
-
 print(f'{a=}, {b=}!')
 print("-----")
 
+a= [1, 2, 3, 4, 5]
+print(a)
+print(len(a))
+print(a[1])
+print("-----------")
 
+
+a.append(1)
+print(a)
+print("-----------")
+a.insert(1, 10)
+print(a)
+print("-----------")
+a.pop(2)
+print(a)
+print("-----------")
+words = ["python", "java", "c++", "go", "kotlin", "rust"]
+print(words[0:3])
+print("-----------")
+print(words[::-1])
+print("-----------")
+print(words[:3])
 url_template='https://users.com/v1/api/{}'
 
 user_url=url_template.format('users')
@@ -74,3 +93,4 @@ print("-----------")
 print(words[::-1])
 print("-----------")
 print(words[:3])
+print("-----------")

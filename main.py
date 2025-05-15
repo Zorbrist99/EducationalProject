@@ -52,3 +52,25 @@ d= 123
 assert s.isdigit()
 assert int(s) == d
 assert s == str(d)
+
+a= [1, 2, 3, 4, 5]
+print(a)
+print(len(a))
+print(a[1])
+print("-----------")
+
+a.append(1)
+print(a)
+print("-----------")
+a.insert(1, 10)
+print(a)
+print("-----------")
+a.pop(2)
+print(a)
+print("-----------")
+words = ["python", "java", "c++", "go", "kotlin", "rust"]
+print(words[0:3])
+print("-----------")
+print(words[::-1])
+print("-----------")
+print(words[:3])

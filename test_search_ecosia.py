@@ -11,11 +11,14 @@ from selenium.webdriver.chrome.options import Options
 
 'none' — вообще не ждать полной загрузки (полный контроль, может быть быстрее, но нужно следить вручную)
 """
+
+input_line='[name="q"]'
+fail_text='234jkl32jknkflrnk23'
+
 def create_driver_with_page_load_strategy():
     options = Options()
     options.page_load_strategy = 'eager'
     return webdriver.Chrome(options=options)
-
 
 @pytest.fixture(scope="session")
 def open_browser():
@@ -28,18 +31,18 @@ def open_browser():
 
 @pytest.fixture(scope="function")
 def clear_search_input():
-    browser.element('[name="q"]').click()
+    browser.element(input_line).click()
     browser.element('[data-test-id="button-icon"]').click()
     yield
 
 
 def test_ecosia(open_browser, clear_search_input):
-    browser.element('[name="q"]').type('yashaka/selene').press_enter()
+    browser.element(input_line).type('yashaka/selene').press_enter()
     browser.element('[id="main"]').should(
         have.text('yashaka/selene: User-oriented Web UI browser tests in Python'))
 
 
 def test_negative_ecosia(open_browser, clear_search_input):
-    browser.element('[name="q"]').type('234jkl32jknkflrnk23').press_enter()
+    browser.element(input_line).type(fail_text).press_enter()
     browser.element('[data-test-id="message-tips-message"]').should(
-        have.text('Unfortunately we didn’t find any results for “' + '234jkl32jknkflrnk23' + '”'))
+        have.text('Unfortunately we didn’t find any results for “' + fail_text + '”'))

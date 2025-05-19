@@ -4,6 +4,7 @@
 иначе — Добро пожаловать!
 """
 
+
 def post_verification():
     age = int(input('Введи свой возраст: '))
 
@@ -11,6 +12,7 @@ def post_verification():
         print('Доступ запрещён')
     else:
         print('Добро пожаловать!')
+
 
 post_verification()
 
@@ -36,14 +38,15 @@ definition_parity()
 Выведи самое большое из них.
 """
 
+
 def comparing_three_numbers():
     one = float(input('Введи первое число'))
     two = float(input('Введи второе число'))
     three = float(input('Введи третье число'))
 
-    #Вариант гораздо быстрее
-    max_number = max(one, two,three)
-    if one<= two >= three:
+    # Вариант гораздо быстрее
+    max_number = max(one, two, three)
+    if one <= two >= three:
         print(f'Самое большое число {two}')
     elif two <= one >= three:
         print(f'Самое большое число {one}')
@@ -51,6 +54,7 @@ def comparing_three_numbers():
         print(f'Самое большое число {three}')
     else:
         print(f'Есть одинаковые числа')
+
 
 comparing_three_numbers()
 
@@ -66,17 +70,20 @@ comparing_three_numbers()
 
 Ниже 50 → Неудовлетворительно
 """
+
+
 def assessment_academic_performance():
     ball = float(input('Введите балл: '))
 
     if ball >= 90:
         print("Отлично")
-    elif 70<=ball<=89:
+    elif 70 <= ball <= 89:
         print("Хорошо")
-    elif 50<= ball <=69:
+    elif 50 <= ball <= 69:
         print("Удовлетворительно")
-    elif ball<50:
+    elif ball < 50:
         print("Неудовлетворительно")
+
 
 assessment_academic_performance()
 
@@ -86,6 +93,7 @@ assessment_academic_performance()
 В остальных случаях — Неверные данные.
 """
 
+
 def login_password_verification():
     login = input('Введите логин: ')
     password = input('Введите пароль')
@@ -94,5 +102,6 @@ def login_password_verification():
         print('Доступ разрешён')
     else:
         print('Неверные данные')
+
 
 login_password_verification()

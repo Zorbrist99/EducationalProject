@@ -174,20 +174,23 @@ def primer_10():
 
 
 def primer_11():
-    unik = dict()
     spisok = input("Вводи слова: ")
+    # Преобразовал в полноценные слова
     v = spisok.split()
-    k = set(v)
-    for words in k:
-        unik[words]
+    # Сделал кортеж со всеми словами, которые пользователь вписал
+    storage1 = tuple(v)
+    # Сделал множество уникальных значений для ключей моего словаря
+    storage2 = set(storage1)
+    # Создали и заполнили словарь ключами
+    storage3 = {}
+    for value in storage2:
+        storage3[value] = None
+    # Прогнали множество, узнали сколько раз конкретное слово повторяется в нашем кортеже. Добавили значение по ключу
+    for value in storage2:
+        a = storage1.count(value)
+        storage3[value] = a
+    print(storage3)
 
-    # for value in k:
-    #     unik[value] = k.count(value)
-    #     print(unik[value])
-    # for var in spisok:
-    #     obem = spisok.count(var)
-    #     s[var] = obem
-primer_11()
 
 """
 ✅ Задание 12: Инвертирование словаря
@@ -205,3 +208,49 @@ def primer_12():
         cities_new[country] = city
     print(cities_new)
 
+
+"""
+✅ Задание 13: Объединение двух словарей
+Есть два словаря с количеством фруктов на складе:
+
+store1 = {"яблоко": 5, "банан": 3}
+store2 = {"яблоко": 2, "апельсин": 4}
+Сложи данные: если фрукт встречается в обоих — суммы, иначе просто добавь.
+"""
+
+
+def primer_13():
+    store1 = {"яблоко": 5, "банан": 3}
+    store2 = {"яблоко": 2, "апельсин": 4}
+    store3 = {}
+    store4 = []
+    # Двумя циклами переложили все значения ключей в лист
+    for fruit in store1:
+        store4.append(fruit)
+    for fruit in store2:
+        store4.append(fruit)
+    # Преобразовали лист в сет, для того что бы получить уникальные значения
+    unik = set(store4)
+    # Через цикл наполнили словарь ключами
+    for fruit in unik:
+        store3[fruit] = None
+    # Берем уникальные значения через цикл. Вытаскиваем у ключа значение в переменную в каждом словаре. Складываю их и присваиваю ключу из результирующего словаря
+    for value in unik:
+        a = store1.get(value, 0)
+        b = store2.get(value, 0)
+        c = a + b
+        store3[value] = c
+    print(store3)
+
+
+"""
+✅ Задание 14: Словарь списков
+Составь словарь, где ключ — первая буква слова, а значение — список всех слов, начинающихся с этой буквы.
+Ввод: строка слов.
+"""
+
+
+def primer_14():
+    a = input("Вводи слова: ")
+    b = tuple(a.split())
+    

@@ -3,6 +3,7 @@ import os.path
 from selene import browser, have, by, be
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 
 
 def create_driver_with_page_load_strategy():
@@ -32,6 +33,12 @@ def test_successful_completion_of_form():
     browser.element('#userNumber').set('8934999000')
     # Выбрать дату рождения
     # Нажимаем на строчку с календарем
+    """
+    Попытки ввести дату, а не выбирать ее в выпадающем окне
+    """
+    # browser.element('#dateOfBirthInput').click().press(Keys.CONTROL, 'a' ).set_value('10June1999').press_enter()
+    # browser.element('#dateOfBirthInput').click().press(Keys.CONTROL, 'a', Keys.BACKSPACE)
+    # browser.element('#dateOfBirthInput').set_value('10June1999').press_enter()
     browser.element('#dateOfBirthInput').click()
     browser.element('.react-datepicker__month-select').element('option[value="6"]').click()
     browser.element('.react-datepicker__year-select').element('option[value="1999"]').click()

@@ -253,4 +253,37 @@ def primer_13():
 def primer_14():
     a = input("Вводи слова: ")
     b = tuple(a.split())
+
+
+def primer_15():
+    name_1, name_2, name_3 = input(), input(), input()
+    maximum = max(len(name_1), len(name_2), len(name_3))
+    minimum = min(len(name_1), len(name_2), len(name_3))
+
+    if len(name_1) == minimum:
+        print(name_1)
+    elif len(name_2) == minimum:
+        print(name_2)
+    elif len(name_3) == minimum:
+        print(name_3)
+
+    if len(name_1) == maximum:
+        print(name_1)
+    elif len(name_2) == maximum:
+        print(name_2)
+    elif len(name_3) == maximum:
+        print(name_3)
+    """
+    Аналог 
+    names = [input() for _ in range(3)]
+    min_name = min(names, key=len)
+    max_name = max(names, key=len)
     
+    print(min_name)
+    print(max_name)
+    
+    В данном случае поиск наименьшего и наибольшего будет по длине, а не по алфавиту 
+    """
+
+
+primer_15()

@@ -3,6 +3,7 @@
 быть арифметической прогрессией
 """
 import math
+from itertools import count
 from math import sqrt, pi, radians, sin, cos, tan
 
 
@@ -20,3 +21,21 @@ def primer_1():
         print('YES')
     else:
         print('NO')
+
+
+def primer_2():
+    flag = True
+    for i in range(10):
+        k = int(input())
+        if k % 2 != 0:
+            flag = False
+    """
+    not flag эквивалентно flag == False и наоборот if flag == True эквивалентно if flag  
+    """
+    if not flag:
+        print('NO')
+    else:
+        print('YES')
+
+
+primer_2()

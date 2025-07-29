@@ -1,5 +1,3 @@
-import os.path
-
 from selene import browser, have, by, be
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options

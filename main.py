@@ -5,6 +5,7 @@
 import math
 from itertools import count
 from math import sqrt, pi, radians, sin, cos, tan
+from sys import flags
 
 
 def primer_1():
@@ -38,4 +39,15 @@ def primer_2():
         print('YES')
 
 
-primer_2()
+def primer_3():
+    stroka = input()
+
+
+    while i < len(stroka):
+        if stroka[i] == '[':
+            slovo = stroka[i + 3:i + 7]
+            stroka = stroka.replace(f'[u-{slovo}]', chr(int(slovo)))
+    print(stroka)
+
+
+primer_3()

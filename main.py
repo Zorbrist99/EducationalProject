@@ -37,9 +37,12 @@ def primer_2():
     else:
         print('YES')
 
+
 """
 Задачка на поиск числа в строке и преобразование его в системе Unicod
 """
+
+
 def primer_3():
     stroka = input()
     i = 0
@@ -53,17 +56,26 @@ def primer_3():
         i += 1
     print(stroka)
 
+
 """
 Шифр цезаря 
 """
+
+
 def primer_4():
     value = int(input())
     stroka = input()
 
+    """
+    Двойной алфавит нужен, что бы не уходить в отрицательную зону. 
+    Мы находим нужную букву во второй части алфавита и идем в левую часть. 
+    Можно представить в виде круга
+    """
     alfavit = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
 
     for n in stroka:
         znak = alfavit.rfind(n)
-        print(alfavit[znak-value], end='')
+        print(alfavit[znak - value], end='')
+
 
 primer_4()

@@ -5,7 +5,6 @@
 import math
 from itertools import count
 from math import sqrt, pi, radians, sin, cos, tan
-from sys import flags
 
 
 def primer_1():
@@ -38,15 +37,20 @@ def primer_2():
     else:
         print('YES')
 
-
+"""
+Задачка на поиск числа в строке и преобразование его в системе Unicod
+"""
 def primer_3():
     stroka = input()
-
+    i = 0
 
     while i < len(stroka):
         if stroka[i] == '[':
             slovo = stroka[i + 3:i + 7]
             stroka = stroka.replace(f'[u-{slovo}]', chr(int(slovo)))
+            i = 0
+            continue
+        i += 1
     print(stroka)
 
 

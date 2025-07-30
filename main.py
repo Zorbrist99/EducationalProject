@@ -53,5 +53,17 @@ def primer_3():
         i += 1
     print(stroka)
 
+"""
+Шифр цезаря 
+"""
+def primer_4():
+    value = int(input())
+    stroka = input()
 
-primer_3()
+    alfavit = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
+
+    for n in stroka:
+        znak = alfavit.rfind(n)
+        print(alfavit[znak-value], end='')
+
+primer_4()

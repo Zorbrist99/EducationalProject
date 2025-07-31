@@ -78,4 +78,9 @@ def primer_4():
         print(alfavit[znak - value], end='')
 
 
-primer_4()
+def primer_5():
+    pass
+
+
+
+primer_5()

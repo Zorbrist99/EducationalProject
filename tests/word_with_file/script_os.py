@@ -29,8 +29,8 @@ os.path.isdir() - существует ли именно папка
 
 os.mkdir - создает новую папку в текущей директории. mkdir(make directory)
 """
-if not os.path.exists("tmp2"):
-    os.mkdir("tmp2")
+if not os.path.exists("tmp"):
+    os.mkdir("tmp")
 
 """
 shutil — модуль для операций с файлами и папками.
@@ -55,4 +55,4 @@ shutil.unpack_archive(file, to_dir)	Распаковывает архив
 
 shutil.disk_usage(path)	Получает объём, занято, свободно на диске
 """
-shutil.rmtree(os.path.join(CURRENT_DIR, "tmp2"))
+# shutil.rmtree(os.path.join(CURRENT_DIR, "tmp2"))

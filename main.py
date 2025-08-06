@@ -79,8 +79,25 @@ def primer_4():
 
 
 def primer_5():
-    pass
+    #Если нужно быстро наполнить массив значениями. Сначала считывается input в range и далее код идет с права на лево
+    ls_strok = [int(input()) for _ in range(int(input()))]
 
+    ls_new = []
+
+    for i in ls_strok:
+        if i < 0:
+            ls_new.append(i)
+
+    for i in ls_strok:
+        if i == 0:
+            ls_new.append(i)
+
+    for i in ls_strok:
+        if i > 0:
+            ls_new.append(i)
+
+    for i in ls_new:
+        print(i)
 
 
 primer_5()

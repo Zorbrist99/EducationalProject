@@ -16,11 +16,14 @@ options = webdriver.ChromeOptions()
 """
 options = webdriver.ChromeOptions()
 
-
+"""
+Набор пользовательских настроек, которые мы можем выставить в браузере по-умолчанию
+"""
 prefs = {
     "download.default_directory": TMP_DIR,
     "download.prompt_for_download": False
 }
+
 options.add_experimental_option("prefs", prefs)
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 browser.config.driver = driver

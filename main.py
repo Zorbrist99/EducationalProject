@@ -3,6 +3,7 @@
 быть арифметической прогрессией
 """
 import math
+import random
 from itertools import count
 from math import sqrt, pi, radians, sin, cos, tan
 
@@ -79,7 +80,7 @@ def primer_4():
 
 
 def primer_5():
-    #Если нужно быстро наполнить массив значениями. Сначала считывается input в range и далее код идет с права на лево
+    # Если нужно быстро наполнить массив значениями. Сначала считывается input в range и далее код идет с права на лево
     ls_strok = [int(input()) for _ in range(int(input()))]
 
     ls_new = []
@@ -100,4 +101,101 @@ def primer_5():
         print(i)
 
 
-primer_5()
+# объявление функции
+def primer_6():
+    gran_diapozon = int(input('Введите правую границу диапозона: '))
+    n = random.randint(1, gran_diapozon)
+    print('Добро пожаловать в числовую угадайку')
+    count = 0
+
+    while True:
+        a = input(f'Введите число от 0 до {gran_diapozon}: ')
+        if not is_valid(a, gran_diapozon):
+            print(f'А может быть все-таки введем целое число от 1 до {gran_diapozon}?')
+            continue
+        a = int(a)
+
+        if a > n:
+            print('Ваше число больше загаданного, попробуйте еще разок')
+            count += 1
+            continue
+        elif a < n:
+            print('Ваше число меньше загаданного, попробуйте еще разок')
+            count += 1
+            continue
+        else:
+            print('Вы угадали, поздравляем!')
+            print(f'Количество попыток {count}')
+            break
+
+    print('-----')
+    print('Хотите еще раз сыграть Y = да / N = нет: ')
+    answer = input()
+    if answer == 'Y':
+        primer_6()
+    else:
+        print('Спасибо, что играли в числовую угадайку. Еще увидимся...')
+
+
+def primer_7():
+    answers = ["Бесспорно", "Мне кажется - да", "Пока неясно, попробуй снова", "Даже не думай",
+               "Предрешено", "Вероятнее всего", "Спроси позже", "Мой ответ - нет",
+               "Никаких сомнений", "Хорошие перспективы", "Лучше не рассказывать", "По моим данным - нет",
+               "Определённо да", "Знаки говорят - да", "Сейчас нельзя предсказать", "Перспективы не очень хорошие",
+               "Можешь быть уверен в этом", "Да", "Сконцентрируйся и спроси опять", "Весьма сомнительно"]
+
+    print('Привет Мир, я магический шар, и я знаю ответ на любой твой вопрос.')
+
+    name = input('Как я могу к вам обращаться ?\n')
+    print(f'Привет {name}')
+
+    while True:
+        input('Какой у тебя вопрос ?\n')
+
+        print(random.choice(answers))
+
+        print('------')
+        prodolgenie = input('Ты хочешь задать еще один вопрос ? Y=да / N=нет\n')
+        if prodolgenie == 'Y':
+            continue
+        else:
+            print('Возвращайся, если возникнут вопросы!')
+            break
+
+
+def primer_8():
+    digits = "0123456789"
+    lowercase_letters = "abcdefghijklmnopqrstuvwxyz"
+    uppercase_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    punctuation = "!#$%&*+-=?@^_"
+    neodnaznach_sm = 'il1Lo0O'
+    chars = ''
+
+    col_answer = int(input('Какое количество паролей вам сгенерировать ?\n'))
+    len_answer = int(input('Какая длинна пароля вам нужна ?\n'))
+    vkl_cf = bool(input(f'Включать ли цифры {digits} в пароль ? True/False\n'))
+    vkl_prop_bk = bool(input(f'Включать ли прописные буквы {uppercase_letters} в пароль ? True/False\n'))
+    vkl_stroch_bk = bool(input(f'Включать ли строчные буквы {lowercase_letters} в пароль ? True/False\n'))
+    vkl_simvols = bool(input(f'Включать ли символы {punctuation} в пароль ? True/False\n'))
+    iskl_neodnaznach_sm = bool(input(f'Исключить ли неодначнаые символы {neodnaznach_sm} из пароля ? True/False\n'))
+
+    if vkl_cf:
+        chars += digits
+    if vkl_prop_bk:
+        chars += uppercase_letters
+    if vkl_stroch_bk:
+        chars += lowercase_letters
+    if vkl_simvols:
+        chars += punctuation
+    if iskl_neodnaznach_sm:
+        for i in neodnaznach_sm:
+            chars = chars.replace(i, '')
+
+    for _ in range(col_answer):
+        print(*generate_password(len_answer, chars), sep='')
+
+
+def generate_password(length, chars):
+    return random.sample(chars,length)
+
+primer_8()

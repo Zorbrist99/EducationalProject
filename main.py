@@ -196,6 +196,174 @@ def primer_8():
 
 
 def generate_password(length, chars):
-    return random.sample(chars,length)
+    return random.sample(chars, length)
 
-primer_8()
+
+def primer_9():
+    stroka = 'To be, or not to be, that is the question!'
+    value = 17
+    alfavit = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
+
+    for i in stroka:
+        if i in [' ', ',', '!']:
+            print(i, end='')
+            continue
+        if i.isupper():
+            znak = alfavit.find(i.lower())
+            print(alfavit[znak + value].upper(), end='')
+        else:
+            znak = alfavit.find(i)
+            print(alfavit[znak + value], end='')
+
+
+def primer_10():
+    word_list = ['околесица', 'околица', 'окрошка']
+
+    play(get_word(word_list))
+
+
+def play(word):
+    word_completion = '_' * len(word)  # строка, содержащая символы _ на каждую букву задуманного слова
+    guessed = False  # сигнальная метка
+    guessed_letters = []  # список уже названных букв
+    guessed_words = []  # список уже названных слов
+    tries = 6
+    word_completion = list(word_completion)
+
+    print('Давайте играть в угадайку слов!')
+    print(display_hangman(tries))
+    print(''.join(word_completion))
+
+    # TODO: Нужно подумать, что делать с частичным угадыванием. Можно вообще такое отсекать
+    while True:
+        # Клиент вводит букву или слово
+        people = input("Введи букву или слово целиком: ").upper()
+
+        # Если клиент указывает значение, которое уже называл, мы убираем одну жизнь и не выполняем то, что указано дальше
+        if people in ''.join(word_completion):
+            print('Уже называл')
+            tries -= 1
+            print(display_hangman(tries))
+            continue
+
+        # Если то, что указал клиент является буквами
+        if people.isalpha() and (len(people) == 1 or len(people) == len(word)):
+            # Если условие True, значит буква есть в слове
+            if word.find(people) != -1:
+                # Делаем перебор по длине слова
+                for i in range(len(word)):
+                    # Если введеная буква клиентом совпадает с буквой i в слове
+                    if people == word[i]:
+                        # Мы меняем по номеру индекса с _ на букву.
+                        word_completion[i] = people
+                print(''.join(word_completion))
+            else:
+                tries -= 1
+                print(display_hangman(tries))
+
+        # Если клиент укажет не буквы, отнимаем жизнь
+        else:
+            print("Необходимо вводить только буквы или слово целиком")
+            tries -= 1
+            print(display_hangman(tries))
+
+        # Если клиент угадал слово сразу, поздравляем и выходим из цикла
+        # Если клиент угадал слово по буквам, поздравляем и выходим из цикла
+        if people == word or ''.join(word_completion) == word:
+            print('Поздравляем, вы угадали слово! Вы победили!')
+            break
+
+        # Если у клиента закончились жизни, то выводим загаданное слово и выходим из цикла
+        if tries == 0:
+            print(word)
+            break
+
+    print('-----')
+    answer = input('Вы хотите сыграть еще раз ? Y=да / N=нет\n')
+    if answer == 'Y':
+        primer_10()
+    else:
+        print('Возвращайтесь к нам еще')
+
+
+def get_word(word_list):
+    return str(random.choice(word_list)).upper()
+
+
+# функция получения текущего состояния
+def display_hangman(tries):
+    stages = [  # финальное состояние: голова, торс, обе руки, обе ноги
+        '''
+           --------
+           |      |
+           |      O
+           |     \\|/
+           |      |
+           |     / \\
+           -
+        ''',
+        # голова, торс, обе руки, одна нога
+        '''
+           --------
+           |      |
+           |      O
+           |     \\|/
+           |      |
+           |     / 
+           -
+        ''',
+        # голова, торс, обе руки
+        '''
+           --------
+           |      |
+           |      O
+           |     \\|/
+           |      |
+           |      
+           -
+        ''',
+        # голова, торс и одна рука
+        '''
+           --------
+           |      |
+           |      O
+           |     \\|
+           |      |
+           |     
+           -
+        ''',
+        # голова и торс
+        '''
+           --------
+           |      |
+           |      O
+           |      |
+           |      |
+           |     
+           -
+        ''',
+        # голова
+        '''
+           --------
+           |      |
+           |      O
+           |    
+           |      
+           |     
+           -
+        ''',
+        # начальное состояние
+        '''
+           --------
+           |      |
+           |      
+           |    
+           |      
+           |     
+           -
+        '''
+    ]
+    return stages[tries]
+
+
+primer_10()

@@ -234,10 +234,14 @@ def play(word):
     print(display_hangman(tries))
     print(''.join(word_completion))
 
-    # TODO: Нужно подумать, что делать с частичным угадыванием. Можно вообще такое отсекать
     while True:
         # Клиент вводит букву или слово
         people = input("Введи букву или слово целиком: ").upper()
+
+        # Если клиент угадал слово сразу, поздравляем и прерываем игру
+        if people == word:
+            print('Поздравляем, вы угадали слово! Вы победили!')
+            break
 
         # Если клиент указывает значение, которое уже называл, мы убираем одну жизнь и не выполняем то, что указано дальше
         if people in ''.join(word_completion):
@@ -247,7 +251,7 @@ def play(word):
             continue
 
         # Если то, что указал клиент является буквами
-        if people.isalpha() and (len(people) == 1 or len(people) == len(word)):
+        if people.isalpha() and len(people) == 1:
             # Если условие True, значит буква есть в слове
             if word.find(people) != -1:
                 # Делаем перебор по длине слова
@@ -267,9 +271,8 @@ def play(word):
             tries -= 1
             print(display_hangman(tries))
 
-        # Если клиент угадал слово сразу, поздравляем и выходим из цикла
         # Если клиент угадал слово по буквам, поздравляем и выходим из цикла
-        if people == word or ''.join(word_completion) == word:
+        if ''.join(word_completion) == word:
             print('Поздравляем, вы угадали слово! Вы победили!')
             break
 

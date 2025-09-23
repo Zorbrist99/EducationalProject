@@ -186,9 +186,11 @@ class TestCart:
             banana: 56
         }
 
-        assert cart.buy() == (
-            f'Ошибка: Количество товаров на складе: {cart.products_save['Бананы']}, количество товаров в корзине: {cart.products[banana]}. '
-            f'Уменьшите количество товаров в корзине!')
+        with pytest.raises(ValueError) as inf:
+            cart.buy()
+
+        assert f'Количество товаров на складе: {cart.products_save[banana.name]}, количество товаров в корзине: {cart.products[banana]}. Уменьшите количество товаров в корзине!' in str(inf.value)
+
 
     def test_buy_product_is_not_products_save(self, cart):
         """
@@ -203,7 +205,11 @@ class TestCart:
             orange: 3
         }
 
-        assert cart.buy() == f"Ошибка: Продукта: {orange.name} нет на складе. Выберите что-то другое"
+        with pytest.raises(KeyError) as inf:
+            cart.buy()
+
+        assert f"Продукта: {orange.name} нет на складе. Выберите что-то другое" in str(inf.value)
+
 
     def test_buy_products_decreasing_in_save(self, cart):
         """
@@ -253,4 +259,7 @@ class TestCart:
         Проверка оплаты пустой корзины
         """
 
-        assert cart.buy() == 'Ошибка: У вас пустая корзина!'
+        with pytest.raises(ValueError) as inf:
+            cart.buy()
+
+        assert "У вас пустая корзина!" in str(inf.value)

@@ -30,7 +30,7 @@ class Product:
             Если продуктов не хватает, то выбросите исключение ValueError
         """
         try:
-            if quantity <=0:
+            if quantity <= 0:
                 raise ValueError(f"Вы не можете оплатить количество товара: {quantity}")
 
             if not self.check_quantity(quantity):
@@ -69,7 +69,6 @@ class Cart:
             "Бананы": 23
         }
         self.sm = 0
-
 
     def add_product(self, product: Product, buy_count=1):
         """
@@ -149,29 +148,22 @@ class Cart:
         В этом случае нужно выбросить исключение ValueError
         """
 
-        try:
-            if self.products == {}:
-                raise ValueError('У вас пустая корзина!')
+        if self.products == {}:
+            raise ValueError('У вас пустая корзина!')
 
-            for fructs, counts in self.products.items():
-                # Берем количество фрукта в корзине и количество на складе. Если количество в корзине больше чем на складе, мы должны упасть с ошибкой
-                if fructs.name not in self.products_save.keys():
-                    raise KeyError(f'Продукта: {fructs.name} нет на складе. Выберите что-то другое')
+        for fructs, counts in self.products.items():
+            # Берем количество фрукта в корзине и количество на складе. Если количество в корзине больше чем на складе, мы должны упасть с ошибкой
+            if fructs.name not in self.products_save.keys():
+                raise KeyError(f'Продукта: {fructs.name} нет на складе. Выберите что-то другое')
 
-                if self.products_save[fructs.name] < counts:
-                    raise ValueError(
-                        f'Количество товаров на складе: {self.products_save[fructs.name]}, количество товаров в корзине: {counts}. '
-                        f'Уменьшите количество товаров в корзине!'
-                    )
+            if self.products_save[fructs.name] < counts:
+                raise ValueError(
+                    f'Количество товаров на складе: {self.products_save[fructs.name]}, количество товаров в корзине: {counts}. '
+                    f'Уменьшите количество товаров в корзине!'
+                )
 
-            for fructis, counts in self.products.items():
-                self.products_save[fructis.name] -= counts
+        for fructis, counts in self.products.items():
+            self.products_save[fructis.name] -= counts
 
-            self.products = {}
-            return 'Спасибо за заказ. Приходите снова'
-
-        except ValueError as e:
-            return f'Ошибка: {e.args[0]}'
-
-        except KeyError as e:
-            return f'Ошибка: {e.args[0]}'
+        self.products = {}
+        return 'Спасибо за заказ. Приходите снова'

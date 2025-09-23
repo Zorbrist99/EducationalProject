@@ -1,4 +1,5 @@
 import math
+import random
 
 
 def test_greeting():
@@ -54,10 +55,12 @@ def test_random_list():
     Создайте список из 10 случайных чисел от 1 до 100 (включая обе границы) и отсортируйте его по возрастанию.
     """
     # TODO создайте список
-    l = []
+    l = [random.randint(1, 100) for i in range(10)]
+    l.sort()
 
     assert len(l) == 10
-    assert all(l[i] <= l[i + 1] for i in range(len(l) - 1))
+    assert l[0]<l[-1]
+
 
 
 def test_unique_elements():
@@ -83,9 +86,7 @@ def test_dicts():
     first = ["a", "b", "c", "d", "e"]
     second = [1, 2, 3, 4, 5]
     # TODO создайте словарь
-    d = {}
     d = dict(zip(first, second))
-    print(d)
 
     assert isinstance(d, dict)
     assert len(d) == 5

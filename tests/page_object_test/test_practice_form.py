@@ -6,12 +6,12 @@ from selenium.webdriver.chrome.options import Options
 from tests.page_object_test.student_registration_form import StudentRegistrationPage
 from tests.page_object_test.submitting_form import StudentSubmittingForm
 
-
+@pytest.fixture
 def create_driver_with_page_load_strategy():
     options = Options()
     options.page_load_strategy = 'eager'
-    return webdriver.Chrome(options=options)
-
+    browser.config.driver = webdriver.Chrome(options=options)
+    return browser.config.driver
 
 @pytest.fixture
 def student_data():
@@ -23,12 +23,9 @@ def student_data():
         "phone": "8934999000"
     }
 
-
-def test_successful_completion_of_form(student_data):
+def test_successful_completion_of_form(student_data, create_driver_with_page_load_strategy):
     student_registration_form = StudentRegistrationPage()
     submitting_from = StudentSubmittingForm()
-    browser.config.driver = create_driver_with_page_load_strategy()
-
     (
         student_registration_form
         .open_form('https://demoqa.com/automation-practice-form')
@@ -45,7 +42,6 @@ def test_successful_completion_of_form(student_data):
         .select_country('NCR')
         .select_city('Noida')
         .click_submit()
-
     )
 
     (

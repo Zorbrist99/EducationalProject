@@ -3,7 +3,7 @@
 """
 import pytest
 
-from models import Product, Cart
+from .models import Product, Cart
 
 
 @pytest.fixture
@@ -22,12 +22,16 @@ class TestProducts:
     Например, текущий класс группирует тесты на класс Product
     """
 
+    @pytest.mark.product
+    @pytest.mark.check
     def test_product_check_quantity(self, product):
         # TODO напишите проверки на метод check_quantity
         assert not product.check_quantity(1005)
         assert product.check_quantity(905)
         assert product.check_quantity(1000)
 
+    @pytest.mark.product
+    @pytest.mark.buy
     def test_product_buy(self, product):
         # TODO напишите проверки на метод buy
         assert product.buy(950) is True
@@ -35,6 +39,8 @@ class TestProducts:
         assert product.buy(0) == 'Ошибка: Вы не можете оплатить количество товара: 0'
         assert product.buy(-100) == 'Ошибка: Вы не можете оплатить количество товара: -100'
 
+    @pytest.mark.product
+    @pytest.mark.buy
     def test_product_buy_more_than_available(self, product):
         # TODO напишите проверки на метод buy,
         #  которые ожидают ошибку ValueError при попытке купить больше, чем есть в наличии
@@ -189,8 +195,8 @@ class TestCart:
         with pytest.raises(ValueError) as inf:
             cart.buy()
 
-        assert f'Количество товаров на складе: {cart.products_save[banana.name]}, количество товаров в корзине: {cart.products[banana]}. Уменьшите количество товаров в корзине!' in str(inf.value)
-
+        assert f'Количество товаров на складе: {cart.products_save[banana.name]}, количество товаров в корзине: {cart.products[banana]}. Уменьшите количество товаров в корзине!' in str(
+            inf.value)
 
     def test_buy_product_is_not_products_save(self, cart):
         """
@@ -209,7 +215,6 @@ class TestCart:
             cart.buy()
 
         assert f"Продукта: {orange.name} нет на складе. Выберите что-то другое" in str(inf.value)
-
 
     def test_buy_products_decreasing_in_save(self, cart):
         """

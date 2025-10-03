@@ -2,9 +2,8 @@ import pytest
 from selene import browser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-
-from tests.page_object_test.student_registration_form import StudentRegistrationPage
-from tests.page_object_test.submitting_form import StudentSubmittingForm
+from .student_registration_form import StudentRegistrationPage
+from .submitting_form import StudentSubmittingForm
 
 @pytest.fixture
 def create_driver_with_page_load_strategy():

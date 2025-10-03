@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-from tests.word_with_file.script_os import TMP_DIR
+from script_os import TMP_DIR
 
 """
 Все команды с webDriver это настройка браузера под себя. 

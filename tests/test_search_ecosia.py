@@ -38,6 +38,7 @@ def open_browser():
 
 @pytest.fixture(scope="function")
 def clear_search_input():
+    """Очищение строки ввода"""
     browser.element(input_line).click()
     browser.element('[data-test-id="button-icon"]').click()
     yield

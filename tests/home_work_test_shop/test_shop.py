@@ -2,19 +2,18 @@
 Протестируйте классы из модуля homework/models.py
 """
 import pytest
-
 from .models import Product, Cart
 
+#Если нужно распространить skip на все тесты в файле
+#pytestmark = pytest.mark.skip(reason="Пробный пропуск. Тут должна быть задача")
 
 @pytest.fixture
 def product():
     return Product("book", 100, "This is a book", 1000)
 
-
 @pytest.fixture
 def cart():
     return Cart()
-
 
 class TestProducts:
     """
@@ -24,6 +23,8 @@ class TestProducts:
 
     @pytest.mark.product
     @pytest.mark.check
+    #Позволяет пропустить тест и в отчет вывести комментарий
+    @pytest.mark.skip(reason="Пробный пропуск. Тут должна быть задача")
     def test_product_check_quantity(self, product):
         # TODO напишите проверки на метод check_quantity
         assert not product.check_quantity(1005)

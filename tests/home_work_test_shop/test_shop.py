@@ -2,18 +2,22 @@
 Протестируйте классы из модуля homework/models.py
 """
 import pytest
+
 from .models import Product, Cart
 
-#Если нужно распространить skip на все тесты в файле
-#pytestmark = pytest.mark.skip(reason="Пробный пропуск. Тут должна быть задача")
+
+# Если нужно распространить skip на все тесты в файле
+# pytestmark = pytest.mark.skip(reason="Пробный пропуск. Тут должна быть задача")
 
 @pytest.fixture
 def product():
     return Product("book", 100, "This is a book", 1000)
 
+
 @pytest.fixture
 def cart():
     return Cart()
+
 
 class TestProducts:
     """
@@ -23,31 +27,44 @@ class TestProducts:
 
     @pytest.mark.product
     @pytest.mark.check
-    #Позволяет пропустить тест и в отчет вывести комментарий
-    @pytest.mark.skip(reason="Пробный пропуск. Тут должна быть задача")
-    def test_product_check_quantity(self, product):
+    # Позволяет пропустить тест и в отчет вывести комментарий
+    # @pytest.mark.skip(reason="Пробный пропуск. Тут должна быть задача")
+    @pytest.mark.parametrize("positive, negative", [
+        (1000, 1005),
+        (950, 1055),
+        (900, 1100)
+    ])
+    def test_product_check_quantity(self, product, positive, negative):
         # TODO напишите проверки на метод check_quantity
-        assert not product.check_quantity(1005)
-        assert product.check_quantity(905)
-        assert product.check_quantity(1000)
+        assert not product.check_quantity(negative)
+        assert product.check_quantity(positive)
 
     @pytest.mark.product
     @pytest.mark.buy
-    def test_product_buy(self, product):
+    #@pytest.mark.xfail(reason="Пример пропуска теста")
+    @pytest.mark.parametrize("positive, negative_minus", [
+        (1000, 0),
+        (550, -300),
+        (150, -1023)
+    ],ids=['Кейс_1','Кейс_2','Кейс_3'])
+    def test_product_buy(self, product, positive, negative_minus):
         # TODO напишите проверки на метод buy
-        assert product.buy(950) is True
-        assert product.buy(1000) is True
-        assert product.buy(0) == 'Ошибка: Вы не можете оплатить количество товара: 0'
-        assert product.buy(-100) == 'Ошибка: Вы не можете оплатить количество товара: -100'
+        assert product.buy(positive)
+        assert product.buy(negative_minus) == f'Ошибка: Вы не можете оплатить количество товара: {negative_minus}'
 
     @pytest.mark.product
     @pytest.mark.buy
-    def test_product_buy_more_than_available(self, product):
+    @pytest.mark.parametrize('negative', [
+        1005,
+        1050,
+        2000
+    ],ids=['Попытка купить на 5 больше чем в корзине','Попытка купить на 50 больше чем в корзине','Попытка купить на 1000 больше чем в корзине'])
+    def test_product_buy_more_than_available(self, product, negative):
         # TODO напишите проверки на метод buy,
         #  которые ожидают ошибку ValueError при попытке купить больше, чем есть в наличии
-        cn = 1005
+        #cn = 1005
 
-        assert product.buy(cn) == f'Ошибка: У тебя не хватает {cn - product.quantity} продуктов'
+        assert product.buy(negative) == f'Ошибка: У тебя не хватает {negative - product.quantity} продуктов'
 
 
 class TestCart:

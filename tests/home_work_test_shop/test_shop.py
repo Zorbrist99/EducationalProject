@@ -41,12 +41,12 @@ class TestProducts:
 
     @pytest.mark.product
     @pytest.mark.buy
-    #@pytest.mark.xfail(reason="Пример пропуска теста")
+    # @pytest.mark.xfail(reason="Пример пропуска теста")
     @pytest.mark.parametrize("positive, negative_minus", [
         (1000, 0),
         (550, -300),
         (150, -1023)
-    ],ids=['Кейс_1','Кейс_2','Кейс_3'])
+    ], ids=['Кейс_1', 'Кейс_2', 'Кейс_3'])
     def test_product_buy(self, product, positive, negative_minus):
         # TODO напишите проверки на метод buy
         assert product.buy(positive)
@@ -58,11 +58,11 @@ class TestProducts:
         1005,
         1050,
         2000
-    ],ids=['Попытка купить на 5 больше чем в корзине','Попытка купить на 50 больше чем в корзине','Попытка купить на 1000 больше чем в корзине'])
+    ], ids=['Попытка купить на 5 больше чем в корзине', 'Попытка купить на 50 больше чем в корзине',
+            'Попытка купить на 1000 больше чем в корзине'])
     def test_product_buy_more_than_available(self, product, negative):
         # TODO напишите проверки на метод buy,
         #  которые ожидают ошибку ValueError при попытке купить больше, чем есть в наличии
-        #cn = 1005
 
         assert product.buy(negative) == f'Ошибка: У тебя не хватает {negative - product.quantity} продуктов'
 

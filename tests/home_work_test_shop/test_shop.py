@@ -1,20 +1,20 @@
 """
 Протестируйте классы из модуля homework/models.py
 """
-import pytest
+from pytest import *
 
 from .models import Product, Cart
 
 
 # Если нужно распространить skip на все тесты в файле
-# pytestmark = pytest.mark.skip(reason="Пробный пропуск. Тут должна быть задача")
+# pytestmark = mark.skip(reason="Пробный пропуск. Тут должна быть задача")
 
-@pytest.fixture
+@fixture
 def product():
     return Product("book", 100, "This is a book", 1000)
 
 
-@pytest.fixture
+@fixture
 def cart():
     return Cart()
 
@@ -25,11 +25,11 @@ class TestProducts:
     Например, текущий класс группирует тесты на класс Product
     """
 
-    @pytest.mark.product
-    @pytest.mark.check
+    @mark.product
+    @mark.check
     # Позволяет пропустить тест и в отчет вывести комментарий
-    # @pytest.mark.skip(reason="Пробный пропуск. Тут должна быть задача")
-    @pytest.mark.parametrize("positive, negative", [
+    # @mark.skip(reason="Пробный пропуск. Тут должна быть задача")
+    @mark.parametrize("positive, negative", [
         (1000, 1005),
         (950, 1055),
         (900, 1100)
@@ -39,10 +39,10 @@ class TestProducts:
         assert not product.check_quantity(negative)
         assert product.check_quantity(positive)
 
-    @pytest.mark.product
-    @pytest.mark.buy
-    # @pytest.mark.xfail(reason="Пример пропуска теста")
-    @pytest.mark.parametrize("positive, negative_minus", [
+    @mark.product
+    @mark.buy
+    # @mark.xfail(reason="Пример пропуска теста")
+    @mark.parametrize("positive, negative_minus", [
         (1000, 0),
         (550, -300),
         (150, -1023)
@@ -52,27 +52,28 @@ class TestProducts:
         assert product.buy(positive)
         assert product.buy(negative_minus) == f'Ошибка: Вы не можете оплатить количество товара: {negative_minus}'
 
-    @pytest.mark.product
-    @pytest.mark.buy
-    @pytest.mark.parametrize('negative', [
-        1005,
-        1050,
-        2000
-    ], ids=['Попытка купить на 5 больше чем в корзине', 'Попытка купить на 50 больше чем в корзине',
-            'Попытка купить на 1000 больше чем в корзине'])
+    """
+    Пример использования parametrize с param. В такой реализации можно сразу указать название запуска и 
+    марки относящиеся к конкретному прогону
+    """
+    @mark.product
+    @mark.parametrize('negative', [
+        param(1005, id='Попытка купить на 5 больше чем в корзине', marks=mark.skip),
+        param(1050, id='Попытка купить на 50 больше чем в корзине', marks=mark.buy),
+        param(2000, id='Попытка купить на 1000 больше чем в корзине', marks=mark.buy)
+    ])
     def test_product_buy_more_than_available(self, product, negative):
         # TODO напишите проверки на метод buy,
         #  которые ожидают ошибку ValueError при попытке купить больше, чем есть в наличии
 
         assert product.buy(negative) == f'Ошибка: У тебя не хватает {negative - product.quantity} продуктов'
 
-
 class TestCart:
     """
     TODO Напишите тесты на методы класса Cart
         На каждый метод у вас должен получиться отдельный тест
         На некоторые методы у вас может быть несколько тестов.
-        Например, негативные тесты, ожидающие ошибку (используйте pytest.raises, чтобы проверить это)
+        Например, негативные тесты, ожидающие ошибку (используйте .raises, чтобы проверить это)
     """
 
     def test_added_product_cart(self, product, cart):
@@ -210,7 +211,7 @@ class TestCart:
             banana: 56
         }
 
-        with pytest.raises(ValueError) as inf:
+        with raises(ValueError) as inf:
             cart.buy()
 
         assert f'Количество товаров на складе: {cart.products_save[banana.name]}, количество товаров в корзине: {cart.products[banana]}. Уменьшите количество товаров в корзине!' in str(
@@ -229,7 +230,7 @@ class TestCart:
             orange: 3
         }
 
-        with pytest.raises(KeyError) as inf:
+        with raises(KeyError) as inf:
             cart.buy()
 
         assert f"Продукта: {orange.name} нет на складе. Выберите что-то другое" in str(inf.value)
@@ -282,7 +283,7 @@ class TestCart:
         Проверка оплаты пустой корзины
         """
 
-        with pytest.raises(ValueError) as inf:
+        with raises(ValueError) as inf:
             cart.buy()
 
         assert "У вас пустая корзина!" in str(inf.value)

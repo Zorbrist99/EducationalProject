@@ -21,3 +21,5 @@ def credits_for_authorization():
         password='QAguru2024',
         username='beryozkinkonstantin@yandex.ru'
     )
+
+#TODO: Написать фикстуру, которая будет возвращать готовый токен авторизации для проверки других ручек

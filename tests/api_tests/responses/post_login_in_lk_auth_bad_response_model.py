@@ -22,7 +22,7 @@ from pydantic import BaseModel, Field
 
 class Errors(BaseModel):
     message: str
-    message: str
+    param: str
 
 
 class PostLoginInLkAuthBadResponse(BaseModel):

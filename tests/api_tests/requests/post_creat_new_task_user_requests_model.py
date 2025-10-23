@@ -2,8 +2,8 @@
 {
     "text": "Update Habitica API Documentation - Tasks",
     "type": "todo",
-    "alias": "hab-api-tasks",
-    "notes": "Update the tasks api on GitHub",
+    "alias": "hab-api_tests-tasks",
+    "notes": "Update the tasks api_tests on GitHub",
     "tags": [
         "ed427623-9a69-4aac-9852-13deb9c190c3"
     ],

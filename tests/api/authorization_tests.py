@@ -2,6 +2,7 @@ import pytest
 
 import requests
 from tests.api.requests.post_login_in_lk_requests_model import LoginRequest
+from tests.api.responses.post_login_in_lk_auth_bad_response import PostLoginInLkAuthBadResponse
 from tests.api.responses.post_login_in_lk_response_model import PostLoginInLkResponse
 
 
@@ -30,8 +31,16 @@ def test_login_in_lk_habitica(credits_for_authorization, api_url):
     assert validate_response.data.newUser == False
 
 
+# TODO:
 def test_auth_bad_request(api_url):
     res = requests.post(api_url["login"])
+    validate_response = PostLoginInLkAuthBadResponse(**res.json())
+
+    assert validate_response.success == False
+    assert validate_response.error == "BadRequest"
+    assert validate_response.message == 'Invalid request parameters.'
+    assert validate_response.errors[0].message == "Missing username or email."
+    assert validate_response.errors[0].param == "Missing username or email."
     assert res.status_code == 400
 
 

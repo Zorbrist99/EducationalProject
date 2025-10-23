@@ -26,6 +26,7 @@ from pydantic import BaseModel, Field
 
 class PostCreatNewTaskUserRequest(BaseModel):
     text: str
+    "Такое ограничение работает только со строками"
     type: str = Field(..., pattern='^(habit|daily|todo|reward)$')
     "Таким образом можно указать варианты, которые могут вернуться, иначе ошибка"
     frequency: str = Field(..., pattern="^(daily|weekly|monthly|yearly)$")

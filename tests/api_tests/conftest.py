@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from requests import Response
 
 from tests.api_tests.requests.post_login_in_lk_requests_model import LoginRequest
-from tests.api_tests.responses.post_login_in_lk_response_model import PostLoginInLkResponse
+from tests.api_tests.responses.post.auth.post_login_in_lk_response_model import PostLoginInLkResponse
 
 
 @pytest.fixture
@@ -36,14 +36,18 @@ def credits_for_authorization_incorrect():
     )
 
 
-# TODO: Написать фикстуру, которая будет возвращать готовый токен авторизации для проверки других ручек
+# TODO: Обернуть в exception, в случае ошибки понимать что происходит
 @pytest.fixture
-def get_token_auth(api_url, credits_for_authorization):
-
+def get_header_auth(api_url, credits_for_authorization):
     res = requests.post(api_url["login"], json=credits_for_authorization.model_dump())
     val = validate_response(PostLoginInLkResponse, res)
 
-    return val.data.apiToken
+    return {
+        "X-Api-User": val.data.id,
+        "X-Api-Key": val.data.apiToken,
+        "X-Client": val.data.username
+    }
+
 
 # TODO: Сделать красивое логирование, посмотреть гпт
 def validate_response(model: type[BaseModel], response: Response):

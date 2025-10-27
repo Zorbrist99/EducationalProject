@@ -2,9 +2,9 @@ import pytest
 
 import requests
 from tests.api_tests.conftest import validate_response
-from tests.api_tests.responses.post_login_in_lk_auth_bad_response_model import PostLoginInLkAuthBadResponse
-from tests.api_tests.responses.post_login_in_lk_response_model import PostLoginInLkResponse
-from tests.api_tests.responses.post_login_in_lk_unauthorized_response_model import PostLoginInLkUnauthorizedResponse
+from tests.api_tests.responses.post.auth.post_login_in_lk_auth_bad_response_model import PostLoginInLkAuthBadResponse
+from tests.api_tests.responses.post.auth.post_login_in_lk_response_model import PostLoginInLkResponse
+from tests.api_tests.responses.post.auth.post_login_in_lk_unauthorized_response_model import PostLoginInLkUnauthorizedResponse
 
 
 # TODO: Понять что не так с фикстурами.

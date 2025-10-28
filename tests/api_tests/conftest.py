@@ -1,6 +1,6 @@
 import pytest
 import requests
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 from requests import Response
 
 from tests.api_tests.requests.post_login_in_lk_requests_model import LoginRequest
@@ -36,19 +36,37 @@ def credits_for_authorization_incorrect():
     )
 
 
-# TODO: Обернуть в exception, в случае ошибки понимать что происходит
+# TODO: Не очень хорошая реализация, на мой взгляд можно лучше. Особенно мне не нравится момент с отображением exception
 @pytest.fixture
 def get_header_auth(api_url, credits_for_authorization):
-    res = requests.post(api_url["login"], json=credits_for_authorization.model_dump())
-    val = validate_response(PostLoginInLkResponse, res)
+    try:
+        print("Попытка авторизации...")
+        res = requests.post(api_url["login"], json=credits_for_authorization.model_dump())
 
-    return {
-        "X-Api-User": val.data.id,
-        "X-Api-Key": val.data.apiToken,
-        "X-Client": val.data.username
-    }
+        if res.status_code != 200:
+            raise ValueError(f"Статус код {res.status_code}, ожидали 200")
+
+        val = validate_response(PostLoginInLkResponse, res)
+
+        print("Авторизация пройдена успешно")
+        return {
+            "X-Api-User": val.data.id,
+            "X-Api-Key": val.data.apiToken,
+            "X-Client": val.data.username
+        }
+
+    except ValueError as e:
+        print(f"Ошибка: {e}",
+              f"Тело ответа: {res.text}"
+              )
+        raise
 
 
-# TODO: Сделать красивое логирование, посмотреть гпт
+# TODO: Сделал логирование, но мне не нравится как в логах выводится сообщение об ошибке
 def validate_response(model: type[BaseModel], response: Response):
-    return model.model_validate(response.json())
+    try:
+        return model.model_validate(response.json())
+
+    except ValidationError as e:
+        print(f"Ошибка: {e}")
+        raise

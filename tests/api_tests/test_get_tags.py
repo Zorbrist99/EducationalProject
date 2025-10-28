@@ -7,7 +7,7 @@ from tests.api_tests.responses.get.tag.get_all_tags_response_model import GetAll
 from tests.api_tests.responses.get.tag.get_tagId_random_user_response_model import GetTagIdRandomUserResponse
 from tests.api_tests.responses.get.tag.get_tagId_user_response_model import GetTagIdResponse
 
-
+#TODO: Возможно стоит сделать класс ? Как правильно ?
 def test_get_all_user_tags_returns_expected_tags(get_header_auth, api_url):
     """Проверка, что авторизованную пользователю приходят все заведеные теги"""
     res = requests.get(api_url['tags'], headers=get_header_auth)

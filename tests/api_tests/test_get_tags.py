@@ -1,6 +1,6 @@
 import requests
 
-from tests.api_tests.conftest import validate_response
+from tests.api_tests.helpers import validate_response
 from tests.api_tests.helpers import assert_status_code_ok, assertion_general_response_fields, \
     assert_status_code_bad_request
 from tests.api_tests.responses.get.tag.get_all_tags_response_model import GetAllTagsResponse
@@ -18,7 +18,6 @@ def test_get_all_user_tags_returns_expected_tags(get_header_auth, api_url):
     tags_name = [tags.name for tags in val.data]
 
     assertion_general_response_fields(val)
-    assert val.success == True
     assert "Работа" in tags_name
     assert "Машина" in tags_name
 
@@ -32,7 +31,6 @@ def test_get_user_tag_by_id_returns_correct_tag(get_header_auth, api_url):
     val = validate_response(GetTagIdResponse, res)
 
     assertion_general_response_fields(val)
-    assert val.success == True
     assert val.data.id == id_tag
     assert val.data.name == 'Работа'
 

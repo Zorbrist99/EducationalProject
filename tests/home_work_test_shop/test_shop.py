@@ -1,20 +1,21 @@
 """
 Протестируйте классы из модуля homework/models.py
 """
-from pytest import *
+import pytest
+from pytest import param, mark
 
-from .models import Product, Cart
+from tests.home_work_test_shop.models import Product, Cart
 
 
 # Если нужно распространить skip на все тесты в файле
 # pytestmark = mark.skip(reason="Пробный пропуск. Тут должна быть задача")
 
-@fixture
+@pytest.fixture
 def product():
     return Product("book", 100, "This is a book", 1000)
 
 
-@fixture
+@pytest.fixture
 def cart():
     return Cart()
 
@@ -25,11 +26,11 @@ class TestProducts:
     Например, текущий класс группирует тесты на класс Product
     """
 
-    @mark.product
-    @mark.check
+    @pytest.mark.product
+    @pytest.mark.check
     # Позволяет пропустить тест и в отчет вывести комментарий
     # @mark.skip(reason="Пробный пропуск. Тут должна быть задача")
-    @mark.parametrize("positive, negative", [
+    @pytest.mark.parametrize("positive, negative", [
         (1000, 1005),
         (950, 1055),
         (900, 1100)
@@ -39,10 +40,10 @@ class TestProducts:
         assert not product.check_quantity(negative)
         assert product.check_quantity(positive)
 
-    @mark.product
-    @mark.buy
+    @pytest.mark.product
+    @pytest.mark.buy
     # @mark.xfail(reason="Пример пропуска теста")
-    @mark.parametrize("positive, negative_minus", [
+    @pytest.mark.parametrize("positive, negative_minus", [
         (1000, 0),
         (550, -300),
         (150, -1023)
@@ -56,8 +57,8 @@ class TestProducts:
     Пример использования parametrize с param. В такой реализации можно сразу указать название запуска и 
     марки относящиеся к конкретному прогону
     """
-    @mark.product
-    @mark.parametrize('negative', [
+    @pytest.mark.product
+    @pytest.mark.parametrize('negative', [
         param(1005, id='Попытка купить на 5 больше чем в корзине', marks=mark.skip),
         param(1050, id='Попытка купить на 50 больше чем в корзине', marks=mark.buy),
         param(2000, id='Попытка купить на 1000 больше чем в корзине', marks=mark.buy)

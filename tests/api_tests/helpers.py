@@ -1,7 +1,6 @@
 from pydantic import BaseModel, ValidationError
 from requests import Response
-#TODO: Вынести логер в отдельный файл, что бы можно было обращаться к нему отовсюду
-from tests.api_tests.conftest import logger
+from tests.logger import logger
 
 
 def assert_status_code_ok(response):

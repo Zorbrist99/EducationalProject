@@ -1,19 +1,10 @@
-import logging
-
 import pytest
 import requests
 
 from tests.api_tests.requests.post_login_in_lk_requests_model import LoginRequest
 from tests.api_tests.responses.post.auth.post_login_in_lk_response_model import PostLoginInLkResponse
 from tests.api_tests.helpers import validate_response
-
-logging.basicConfig(
-    level=logging.INFO,  # показываем все сообщения от INFO и выше
-    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",  # формат вывода
-    datefmt="%H:%M:%S"  # время в человеко-читаемом виде
-)
-
-logger = logging.getLogger(__name__)
+from tests.logger import logger
 
 @pytest.fixture()
 def base_url():
@@ -61,7 +52,7 @@ def get_header_auth(api_url, credits_for_authorization):
         }
 
     except requests.exceptions.HTTPError as e:
-        logger.error(f"Ошибка: {e}"
+        logger.error(f"Ошибка: {e}\n"
               f"Статус код: {res.status_code}. Тело ответа: {res.text}"
               )
         raise

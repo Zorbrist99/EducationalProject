@@ -4,12 +4,15 @@ from tests.api_tests.helpers import asser_status_code_created, assertion_general
 from tests.api_tests.responses.get.tag.get_tagId_user_response_model import GetTagIdResponse
 
 
-def test_creat_new_tag(api_url, get_header_auth):
+class TestPostNewTag:
 
-    res = requests.post(api_url['tags'], headers=get_header_auth, json={"name":"Катер"})
-    asser_status_code_created(res)
+    def test_create_new_tag(self, api_url, get_header_auth):
+        test_data = {"name": "Катер"}
 
-    val = validate_response(GetTagIdResponse, res)
+        res = requests.post(api_url['tags'], headers=get_header_auth, json=test_data)
+        asser_status_code_created(res)
 
-    assertion_general_response_fields(val)
-    assert val.data.name == 'Катер'
+        val = validate_response(GetTagIdResponse, res)
+
+        assertion_general_response_fields(val)
+        assert val.data.name == test_data['name']

@@ -2,10 +2,13 @@
 Пример того, как можно в лоб найти минимальное, среднее, максимальное значение и понять может ли эта последовательность
 быть арифметической прогрессией
 """
+import csv
 import math
 import random
 from itertools import count
 from math import sqrt, pi, radians, sin, cos, tan
+
+from pyexpat import features
 
 
 def primer_1():
@@ -367,3 +370,32 @@ def display_hangman(tries):
         '''
     ]
     return stages[tries]
+
+
+def primer_11():
+    with open("students.csv", mode='w', encoding="utf-8") as file:
+        file.write("name,age,grade")
+        file.write("Alice,20,A")
+        file.write("Bob,22,B")
+        file.write("Charlie,21,A")
+
+
+def primer_12():
+    with open("students.csv", mode='w', encoding="utf-8", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(["name", "age", "grade"])
+        writer.writerows([
+            ['Alice', '20', 'A'],
+            ['Bob', '22', 'B'],
+            ['Charlie', '21', 'A']
+        ])
+
+#TODO: Загрузить ответ на второе задание в gpt
+def primer_13():
+    with open('students.csv', mode='r', encoding='utf-8') as file:
+        new_file = [row.split(',') for row in file]
+        del new_file[0]
+        for line in new_file:
+            print(f'Имя: {line[0]}, Возраст: {line[1]}, Оценка: {line[2]}', end='')
+
+primer_13()

@@ -390,12 +390,28 @@ def primer_12():
             ['Charlie', '21', 'A']
         ])
 
-#TODO: Загрузить ответ на второе задание в gpt
+
 def primer_13():
     with open('students.csv', mode='r', encoding='utf-8') as file:
-        new_file = [row.split(',') for row in file]
-        del new_file[0]
-        for line in new_file:
-            print(f'Имя: {line[0]}, Возраст: {line[1]}, Оценка: {line[2]}', end='')
+        # new_file = [row.split(',') for row in file]
+        reader = csv.reader(file)
+        'Убирает первую строчку(заголовок)'
+        next(reader)
+        for line in reader:
+            print(f'Имя: {line[0]}, Возраст: {line[1]}, Оценка: {line[2]}')
 
-primer_13()
+
+def primer_14():
+    with open('students.csv', mode='r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        for i in reader:
+            if i['grade'] == 'A':
+                print(i['name'])
+
+
+def primer_15():
+    with open('students.csv', mode='a', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(['David', '23', 'C'])
+
+primer_15()

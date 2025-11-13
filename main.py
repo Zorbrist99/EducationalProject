@@ -5,6 +5,7 @@
 import csv
 import math
 import random
+import tempfile
 from itertools import count
 from math import sqrt, pi, radians, sin, cos, tan
 
@@ -414,4 +415,79 @@ def primer_15():
         writer = csv.writer(file)
         writer.writerow(['David', '23', 'C'])
 
-primer_15()
+
+"""
+Дан файл products.csv:
+name,category,price,quantity
+Яблоко,Фрукты,50,100
+Молоко,Молочные,80,50
+Хлеб,Выпечка,30,75
+
+Напиши функции:
+1. find_products_by_category(category) - возвращает товары категории
+2. get_total_value() - подсчитывает общую стоимость всех товаров
+3. save_expensive_products(threshold) - сохраняет товары дороже порога
+"""
+
+
+def find_products_by_category(category):
+    category_list = []
+    with open('products.csv', mode='r', encoding='utf-8') as f:
+        rider = csv.DictReader(f)
+        for line in rider:
+            if line['category'] == category:
+                category_list.append(line)
+
+    return category_list
+
+
+def get_total_value():
+    sm = 0
+    with open('products.csv', mode='r', encoding='utf-8') as f:
+        rider = csv.DictReader(f)
+        for line in rider:
+            sm += (int(line['price']) * int(line['quantity']))
+    return sm
+
+
+def save_expensive_products(threshold):
+    threshold_list = []
+    with open('products.csv', mode='r', encoding='utf-8') as f:
+        rider = csv.DictReader(f)
+        for line in rider:
+            if int(line['price']) > threshold:
+                threshold_list.append(line)
+
+    return threshold_list
+
+
+def primer_16():
+    with open('products.csv', mode='w', encoding='utf-8', newline='') as f:
+        writers = csv.DictWriter(f, fieldnames=['name', 'category', 'price', 'quantity'])
+        writers.writeheader()
+        writers.writerows([
+            {'name': 'Яблоко', 'category': 'Фрукты', 'price': '50', 'quantity': '100'},
+            {'name': 'Молоко', 'category': 'Молочные', 'price': '80', 'quantity': '50'},
+            {'name': 'Хлеб', 'category': 'Выпечка', 'price': '30', 'quantity': '75'}
+        ])
+    print(*find_products_by_category('Фрукты'))
+    print(get_total_value())
+    print(save_expensive_products(10))
+
+
+def primer_17():
+    with open('students.csv', mode='a', encoding='utf-8', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=['name', 'age', 'grade'])
+        writer.writerows([{'name': 'David', 'age': '23', 'grade': 'C'}])
+
+
+def primer_18():
+    list_students_for_21 = []
+    with open('students.csv', mode='r', encoding='utf-8') as f:
+        rider = csv.DictReader(f)
+        for line in rider:
+            if int(line['age']) > 21:
+                list_students_for_21.append(line)
+    return list_students_for_21
+
+#TODO: Остановился на временных файлах tempfile

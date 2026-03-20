@@ -17,7 +17,7 @@ class PrintPlugin(Plugin):
 
 
 class SumPlugin(Plugin):
-    def __init__(self, list_number):
+    def __init__(self, list_number: list):
         self.list_number = list_number
 
     def execute(self):

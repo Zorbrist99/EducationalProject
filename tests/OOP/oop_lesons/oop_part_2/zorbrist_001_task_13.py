@@ -1,5 +1,5 @@
 class Task:
-    def __init__(self, title, done=False):
+    def __init__(self, title: str, done: bool = False):
         self.title = title
         self.done = done
 
@@ -22,7 +22,6 @@ class TaskManager:
 
     def add(self, cls: Task):
         self.list_tasks.append(cls)
-
 
 tm = TaskManager()
 tm.add(Task("do homework"))

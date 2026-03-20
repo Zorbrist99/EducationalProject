@@ -53,7 +53,8 @@ class TextField(UIComponent):
 
     @visible.setter
     def visible(self, value):
-        if type(value) is not bool:
+        # Можно проверить принадлежит ли объект классу или его наследником
+        if not isinstance(value, bool):
             raise ValueError("Значение value должно быть True или False")
 
         self.__visible = value
@@ -84,7 +85,8 @@ class Checkbox(UIComponent):
 
 class UIContainer:
     def __init__(self):
-        self.components = []
+        #Что бы отображались подсказки методов
+        self.components :list[UIComponent] = []
 
     def add(self, components: UIComponent):
         self.components.append(components)
@@ -94,10 +96,11 @@ class UIContainer:
             if value.visible:
                 value.render()
 
+
 ui = UIContainer()
 ui.add(Button("OK"))
 ui.add(Checkbox(True))
 ui.add(TextField("Введите имя"))
-ui.components[1].visible = False
+ui.components[2].visible = 'False'
 
 ui.render_all()

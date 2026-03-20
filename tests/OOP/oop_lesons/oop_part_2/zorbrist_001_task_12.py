@@ -10,11 +10,17 @@ class MessageArchive:
 
     @property
     def last_message(self):
-        return self.list_message[-1]
-
+        # if len(self.list_message) == 0:
+        #     raise ValueError("Список пустой")
+        #
+        # return self.list_message[-1]
+        try:
+            return self.list_message[-1]
+        except:
+            raise ValueError("Список пустой")
 
 archive = MessageArchive()
 archive.add_message("Привет!")
 archive.add_message("Как дела?")
-print(archive.last_message) # Как дела?
-print(len(archive)) # 2
+print(archive.last_message)  # Как дела?
+print(len(archive))  # 2

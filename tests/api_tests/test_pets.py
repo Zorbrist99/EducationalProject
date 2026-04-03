@@ -1,26 +1,36 @@
+import pytest
 import requests
 
 
+@pytest.mark.test
 class TestGetPets:
-    def test_add_new_pat_the_store(self):
+    def test_add_new_pat_the_store(self,
+                                   id: int = 111,
+                                   name: str = "mun",
+                                   category_id: int = 1,
+                                   category_name: str = "Dogs",
+                                   photo_urls: str = "primer",
+                                   tags_id: int = 1,
+                                   tags_name: str = "smart",
+                                   status: str = "available"):
         response = requests.post(url='https://petstore3.swagger.io/api/v3/pet',
                                  json={
-                                     "id": 111,
-                                     "name": "mun",
+                                     "id": id,
+                                     "name": name,
                                      "category": {
-                                         "id": 1,
-                                         "name": "Dogs"
+                                         "id": category_id,
+                                         "name": category_name
                                      },
                                      "photoUrls": [
-                                         "primer"
+                                         photo_urls
                                      ],
                                      "tags": [
                                          {
-                                             "id": 1,
-                                             "name": "smart"
+                                             "id": tags_id,
+                                             "name": tags_name
                                          }
                                      ],
-                                     "status": "available"
+                                     "status": status
                                  })
 
         assert response.status_code == 200
@@ -34,7 +44,6 @@ class TestGetPets:
         response = requests.delete(url=f'https://petstore3.swagger.io/api/v3/pet/{pet_id}')
 
         assert response.status_code == 200
-
 
 # testGetPets = TestGetPets()
 # testGetPets.test_add_new_pat_the_store()
